@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://www.freshbooks.com/wp-content/uploads/2022/02/expense-tracking.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .container {
+            max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+        #totalRow {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Expenses Tracker</h1>
+        <form id="expenseForm">
+            <input type="text" id="item" placeholder="Expense Item" required>
+            <input type="number" id="amount" placeholder="Amount (₹)" required>
+            <input type="date" id="date" required>
+            <input type="submit" value="Add Expense">
+        </form>
+        <table id="expenseTable">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Amount (₹)</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Expense items will be added here dynamically -->
+            </tbody>
+            <tfoot>
+                <tr id="totalRow">
+                    <td>Total Expenses:</td>
+                    <td id="totalAmount" colspan="2">₹0</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script>
+        const form = document.getElementById('expenseForm');
+        const table = document.getElementById('expenseTable').getElementsByTagName('tbody')[0];
+        const totalAmountCell = document.getElementById('totalAmount');
+
+        let totalExpenses = 0;
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const item = document.getElementById('item').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const date = document.getElementById('date').value;
+
+            // Add expense to the table
+            const newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td>${item}</td>
+                <td>₹${amount.toFixed(2)}</td>
+                <td>${date}</td>
+            `;
+
+            // Update total expenses
+             totalExpenses += amount;
+            totalAmountCell.textContent = ₹${totalExpenses.toFixed(2)}; 
+   
+
+            // Reset form fields
+            form.reset();
+        });
+    </script>
+</body>
+</html>
