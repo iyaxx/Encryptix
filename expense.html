@@ -82,10 +82,11 @@
                     <th>Item</th>
                     <th>Amount (₹)</th>
                     <th>Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Expense items will be added here dynamically -->
+                
             </tbody>
             <tfoot>
                 <tr id="totalRow">
@@ -109,22 +110,32 @@
             const amount = parseFloat(document.getElementById('amount').value);
             const date = document.getElementById('date').value;
 
-            // Add expense to the table
+            
             const newRow = table.insertRow();
             newRow.innerHTML = `
                 <td>${item}</td>
                 <td>₹${amount.toFixed(2)}</td>
                 <td>${date}</td>
+                <td><button class="deleteBtn">Delete</button></td>
             `;
 
-            // Update total expenses
+            
              totalExpenses += amount;
-            totalAmountCell.textContent = ₹${totalExpenses.toFixed(2)}; 
+            totalAmountCell.textContent = `₹${totalExpenses.toFixed(2)}`; 
    
 
-            // Reset form fields
+            
             form.reset();
+            
+            const deleteBtn = newRow.querySelector('.deleteBtn');
+            deleteBtn.addEventListener('click', function() {
+                const row = this.closest('tr');
+                const amount = parseFloat(row.children[1].textContent.replace('$', ''));
+                totalExpenses -= amount;
+                totalAmountCell.textContent = `₹${totalExpenses.toFixed(2)}`;
+                row.remove();
         });
+       });
     </script>
 </body>
 </html>
